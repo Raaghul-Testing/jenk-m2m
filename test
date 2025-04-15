@@ -1,0 +1,46 @@
+import requests
+#from requests.auth import HTTPBasicAuth
+#from urllib.parse import urlencode
+ 
+# Okta information
+okta_domain = "https://accenturedev7mn.oktapreview.com"  # Replace with your Okta domain (e.g., https://dev-123456.okta.com)
+client_id = "0oa2chm5eyvMLrOEL0h8"  # Replace with your Okta Client ID
+client_secret = "KhZQ4XUQBa0wvw2VKU0M9ztRDCzjOEnYR5s2bL1jJ9MgAj1LmbDF5Hbt2Kmi3s7U"  # Replace with your Okta Client Secret
+#audience = "https://accenturedev7mn-admin.oktapreview.com/admin/oauth2/as/aus2cf9w45yAppAv70h8"  
+OKTA_ISSUER = "https://accenturedev7mn-admin.oktapreview.com/admin/oauth2/as/ausdy974gxbNZ4O6Y0h7"
+auth_server = "ausdy974gxbNZ4O6Y0h7"
+#introspection_url = f"{okta_domain}/oauth2/{auth_server}/v1/introspect"
+token_url = f"{okta_domain}/oauth2/{auth_server}/v1/token"
+#appId = "0oa236aywq5m49bSD0h8"
+#url = f"{okta_domain}/api/v1/users/me"
+#random_text = "12345"
+ 
+# Define the payload for the token request
+data = {
+    "grant_type": "client_credentials",
+    "scope": "api.read",
+    "client_id": client_id,
+    "client_secret": client_secret
+}
+ 
+# Make the POST request to obtain the token
+response = requests.post(token_url, data=data)
+ 
+# Check if the request was successful
+if response.status_code == 200:
+# Get the access token from the response JSON
+    print("\n")
+    print("Use case 1: Requesting Access Token using client credentials for M2M integration")
+    print("\n")
+    print("Request was successful. Below are the access token details:")
+    access_token = response.json().get('access_token')
+    print("Access Token:", access_token)
+else:
+# Print error message if request fails
+    print(f"Error: {response.status_code}")
+    print(response.json())
+ 
+print("\n")
+ 
+ 
+ 
